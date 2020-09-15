@@ -34,24 +34,55 @@
             <a class="navbar-brand" href="#">Like Lion</a>
 
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
-                    <a class="nav-item nav-link" href="#">Blog</a>
-                    <a class="nav-item nav-link" href="{% url 'new'%}">new</a>
-                    <a class="nav-item nav-link" href="{% url 'portfolio'%}">portfolio</a>
+                    <a class="nav-item nav-link" href="{% url 'new' %}">new</a>
+                    <a class="nav-item nav-link" href="{% url 'portfolio' %}">portfolio</a>
+                    <a class="nav-item nav-link" href="{% url 'signup' %}">Signup</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 </div>
             </div>
 
             <form class="form-inline my-lg-0" action="#">
                 <input class="form-control mr-sm-2" type="text" placeholder="검색어">
                 <button class="btn btn-light btn-outline-success" type="submit">찾기</button>
-            </form>
+            </form> -->
 
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'home' %}">Blog</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">환영합니다. {{ user.username }} 님!</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'new' %}">글쓰기</a>
+                        <a class="dropdown-item"
+                            href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                        <form id="logout" method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %} <input type="hidden" />
+                        </form>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'signup' %}">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
 
